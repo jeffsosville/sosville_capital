@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sosville Capital | Service Business M&A Infrastructure</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0f1c3f;
+            --navy-light: #1a2d5a;
+            --slate: #64748b;
+            --silver: #e2e8f0;
+            --off-white: #f8fafc;
+            --white: #ffffff;
+            --accent: #2563eb;
+            --text-dark: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--white);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.25rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--silver);
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--navy);
+            text-decoration: none;
+            letter-spacing: -0.03em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--slate);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--navy);
+        }
+
+        .nav-cta {
+            background: var(--navy);
+            color: var(--white);
+            padding: 0.7rem 1.5rem;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--navy-light);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-btn span {
+            width: 24px;
+            height: 2px;
+            background: var(--navy);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 4rem 4rem;
+            text-align: center;
+            background: var(--white);
+        }
+
+        .hero-content {
+            max-width: 750px;
+        }
+
+        .hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--slate);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p.lead {
+            font-size: 1.25rem;
+            color: var(--text-dark);
+        }
+
+        .hero-cta {
+            margin-top: 2.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--navy-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--navy);
+            border: 1px solid var(--navy);
+        }
+
+        .btn-secondary:hover {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 4rem;
+        }
+
+        .section-header {
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        .section-header.center {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-tag {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 600;
+            color: var(--navy);
+            letter-spacing: -0.02em;
+        }
+
+        /* Marketplaces */
+        .marketplaces {
+            background: var(--off-white);
+        }
+
+        .marketplace-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .marketplace-card {
+            padding: 2rem;
+            background: var(--white);
+            border: 1px solid var(--silver);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .marketplace-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(15, 28, 63, 0.1);
+            border-color: var(--navy);
+        }
+
+        .marketplace-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .marketplace-card p {
+            font-size: 0.9rem;
+            color: var(--slate);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .marketplace-card .link {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .marketplace-card:hover .link {
+            gap: 0.75rem;
+        }
+
+        .marketplace-card.coming-soon {
+            opacity: 0.7;
+        }
+
+        .marketplace-card.coming-soon .badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--slate);
+            background: var(--silver);
+            padding: 0.25rem 0.5rem;
+            margin-left: 0.5rem;
+        }
+
+        .marketplace-note {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: var(--slate);
+            font-style: italic;
+        }
+
+        /* Platform Section */
+        .platform {
+            background: var(--white);
+        }
+
+        .platform-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .platform-text h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .platform-text p {
+            font-size: 1rem;
+            color: var(--slate);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .platform-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .platform-list li {
+            padding: 0.6rem 0;
+            padding-left: 1.25rem;
+            position: relative;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .platform-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 5px;
+            background: var(--navy);
+        }
+
+        .platform-card {
+            padding: 2.5rem;
+            background: var(--off-white);
+            border: 1px solid var(--silver);
+        }
+
+        .platform-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.75rem;
+        }
+
+        .platform-card p {
+            font-size: 0.9rem;
+            color: var(--slate);
+            line-height: 1.7;
+        }
+
+        /* Advisory Section */
+        .advisory {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .advisory-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .advisory-text h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .advisory-text p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .advisory-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .advisory-list li {
+            padding: 0.6rem 0;
+            padding-left: 1.25rem;
+            position: relative;
+            color: var(--white);
+            font-size: 0.95rem;
+        }
+
+        .advisory-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 5px;
+            background: var(--white);
+        }
+
+        .advisory-note {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            font-style: italic;
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--navy);
+        }
+
+        .btn-white:hover {
+            background: var(--off-white);
+            transform: translateY(-2px);
+        }
+
+        /* Who Section */
+        .who {
+            background: var(--off-white);
+        }
+
+        .who-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .who-card {
+            padding: 1.5rem;
+            background: var(--white);
+            border: 1px solid var(--silver);
+            text-align: center;
+        }
+
+        .who-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .who-card p {
+            font-size: 0.85rem;
+            color: var(--slate);
+            line-height: 1.6;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--white);
+        }
+
+        .about-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .about-content p {
+            font-size: 1.05rem;
+            color: var(--slate);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-values {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2.5rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid var(--silver);
+        }
+
+        .about-value {
+            text-align: center;
+        }
+
+        .about-value h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.25rem;
+        }
+
+        .about-value p {
+            font-size: 0.8rem;
+            color: var(--slate);
+            margin-bottom: 0;
+        }
+
+        /* Contact */
+        .contact {
+            background: var(--off-white);
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .contact p {
+            font-size: 1rem;
+            color: var(--slate);
+            max-width: 500px;
+            margin: 0 auto 2rem;
+        }
+
+        .contact-email {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--navy);
+            text-decoration: none;
+            border-bottom: 2px solid var(--navy);
+            padding-bottom: 0.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-email:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 4rem;
+            background: var(--navy);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        footer p {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            nav {
+                padding: 1.25rem 2rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                border-bottom: 1px solid var(--silver);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            section {
+                padding: 4rem 2rem;
+            }
+
+            .hero {
+                padding: 7rem 2rem 4rem;
+            }
+
+            .marketplace-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .platform-content,
+            .advisory-content {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .who-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-values {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            footer {
+                padding: 2rem;
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .who-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#" class="logo">Sosville Capital</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#marketplaces">Marketplaces</a></li>
+            <li><a href="#platform">Platform Brokerage</a></li>
+            <li><a href="#advisory">Advisory</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+        <a href="#contact" class="nav-cta">Contact</a>
+        <button class="mobile-menu-btn" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Building focused marketplaces for buying and selling service businesses</h1>
+            <p class="lead">Sosville Capital operates a portfolio of vertical marketplaces, a national broker network, and a selective advisory practice.</p>
+            <p>Each brand is purpose-built for clarity, trust, and execution. If you're looking to buy, sell, broker, or prepare a service business for transition, start here.</p>
+            <div class="hero-cta">
+                <a href="#marketplaces" class="btn btn-primary">View Marketplaces</a>
+                <a href="#platform" class="btn btn-secondary">For Brokers</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="marketplaces" id="marketplaces">
+        <div class="section-header center">
+            <p class="section-tag">Our Ecosystem</p>
+            <h2>Sell or Buy a Business</h2>
+        </div>
+        <div class="marketplace-grid">
+            <a href="https://atmbrokerage.com" class="marketplace-card" target="_blank">
+                <h3>ATM Brokerage</h3>
+                <p>Buy and sell ATM route businesses nationwide.</p>
+                <span class="link">atmbrokerage.com →</span>
+            </a>
+            <a href="https://cleaningexits.com" class="marketplace-card" target="_blank">
+                <h3>Cleaning Exits</h3>
+                <p>Buy and sell commercial and residential cleaning businesses.</p>
+                <span class="link">cleaningexits.com →</span>
+            </a>
+            <div class="marketplace-card coming-soon">
+                <h3>Vending Exits <span class="badge">Launching</span></h3>
+                <p>Buy and sell vending and unattended retail businesses.</p>
+                <span class="link">vendingexits.com →</span>
+            </div>
+        </div>
+        <p class="marketplace-note">Each marketplace is niche-specific, independently operated, and optimized for trust—not volume.</p>
+    </section>
+
+    <section class="platform" id="platform">
+        <div class="platform-content">
+            <div class="platform-text">
+                <h2>For Brokers & Referral Partners</h2>
+                <p>We operate a national referral and routing platform for licensed brokers and qualified referral partners, with a focus on compliance, attribution, and clean economics.</p>
+                <ul class="platform-list">
+                    <li>Broker onboarding</li>
+                    <li>Deal routing & attribution</li>
+                    <li>Referral fee administration</li>
+                    <li>California compliance coverage</li>
+                </ul>
+                <a href="https://platformbrokerage.com" class="btn btn-primary" target="_blank">Learn More →</a>
+            </div>
+            <div class="platform-card">
+                <h3>Platform Brokerage</h3>
+                <p>Colorado-based brokerage with a national referral network and niche buyer representation. If you're a licensed broker looking for deal flow, or a referral partner looking for clean economics, this is where you plug in.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="advisory" id="advisory">
+        <div class="advisory-content">
+            <div class="advisory-text">
+                <h2>For Owners Preparing an Exit</h2>
+                <p>Selective advisory for owners who need depth before a transaction. This is application-only and limited in scope.</p>
+                <ul class="advisory-list">
+                    <li>Exit readiness & cleanup</li>
+                    <li>Owner transition planning</li>
+                    <li>Managed services & operational stabilization</li>
+                </ul>
+                <p class="advisory-note">This monetizes depth, not scale.</p>
+                <a href="https://jeffsosville.github.io/consultant_strategies/" class="btn btn-white" target="_blank">Apply →</a>
+            </div>
+            <div>
+                <div class="platform-card" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
+                    <h3 style="color: white;">Consultant Strategies</h3>
+                    <p style="color: rgba(255,255,255,0.7);">Niche advisory specializing in exit prepping, managed services, and owner transition strategies. Built on real transaction experience—not theory.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="who" id="who">
+        <div class="section-header center">
+            <p class="section-tag">Who This Is For</p>
+            <h2>Find Your Starting Point</h2>
+        </div>
+        <div class="who-grid">
+            <div class="who-card">
+                <h3>Business Owners</h3>
+                <p>Looking for a clean, focused exit</p>
+            </div>
+            <div class="who-card">
+                <h3>Buyers</h3>
+                <p>Seeking real opportunities in specific niches</p>
+            </div>
+            <div class="who-card">
+                <h3>Licensed Brokers</h3>
+                <p>Looking for deal flow and referral economics</p>
+            </div>
+            <div class="who-card">
+                <h3>Partners</h3>
+                <p>CPAs, attorneys, lenders who refer or support transactions</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="about-content">
+            <h2>About Sosville Capital</h2>
+            <p>Sosville Capital builds and operates vertical marketplaces for service business transactions.</p>
+            <p>Our brands are independent by design, connected by infrastructure, and aligned by incentives.</p>
+            <div class="about-values">
+                <div class="about-value">
+                    <h4>Focus over scale</h4>
+                    <p>Depth wins</p>
+                </div>
+                <div class="about-value">
+                    <h4>Transparency over volume</h4>
+                    <p>Trust compounds</p>
+                </div>
+                <div class="about-value">
+                    <h4>Systems over noise</h4>
+                    <p>Clean execution</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2>Get In Touch</h2>
+        <p>Partnership inquiries, press, or questions about our ecosystem.</p>
+        <a href="mailto:info@sosvl.com" class="contact-email">info@sosvl.com</a>
+    </section>
+
+    <footer>
+        <div class="footer-logo">Sosville Capital LLC</div>
+        <p>© 2026 Sosville Capital. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    document.getElementById('navLinks').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
