@@ -1,904 +1,304 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sosvl | Service Business M&A Infrastructure</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --navy: #0f1c3f;
-            --navy-light: #1a2d5a;
-            --slate: #64748b;
-            --silver: #e2e8f0;
-            --off-white: #f8fafc;
-            --white: #ffffff;
-            --accent: #2563eb;
-            --text-dark: #1e293b;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'DM Sans', sans-serif;
-            background-color: var(--white);
-            color: var(--text-dark);
-            line-height: 1.6;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.25rem 4rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--silver);
-        }
-
-        .logo {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--navy);
-            text-decoration: none;
-            letter-spacing: -0.03em;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--slate);
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--navy);
-        }
-
-        .nav-cta {
-            background: var(--navy);
-            color: var(--white);
-            padding: 0.7rem 1.5rem;
-            text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.03em;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-        }
-
-        .nav-cta:hover {
-            background: var(--navy-light);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        .mobile-menu-btn span {
-            width: 24px;
-            height: 2px;
-            background: var(--navy);
-        }
-
-        /* Hero */
-        .hero {
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8rem 4rem 4rem;
-            text-align: center;
-            background: var(--white);
-        }
-
-        .hero-content {
-            max-width: 750px;
-        }
-
-        .hero h1 {
-            font-family: 'Outfit', sans-serif;
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 700;
-            line-height: 1.15;
-            color: var(--navy);
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.03em;
-        }
-
-        .hero p {
-            font-size: 1.15rem;
-            color: var(--slate);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero p.lead {
-            font-size: 1.25rem;
-            color: var(--text-dark);
-        }
-
-        .hero-cta {
-            margin-top: 2.5rem;
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: var(--navy);
-            color: var(--white);
-        }
-
-        .btn-primary:hover {
-            background: var(--navy-light);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--navy);
-            border: 1px solid var(--navy);
-        }
-
-        .btn-secondary:hover {
-            background: var(--navy);
-            color: var(--white);
-        }
-
-        /* Section Styles */
-        section {
-            padding: 6rem 4rem;
-        }
-
-        .section-header {
-            max-width: 600px;
-            margin-bottom: 3rem;
-        }
-
-        .section-header.center {
-            text-align: center;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .section-tag {
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--accent);
-            margin-bottom: 0.75rem;
-        }
-
-        .section-header h2 {
-            font-family: 'Outfit', sans-serif;
-            font-size: clamp(1.75rem, 3vw, 2.25rem);
-            font-weight: 600;
-            color: var(--navy);
-            letter-spacing: -0.02em;
-        }
-
-        /* Marketplaces */
-        .marketplaces {
-            background: var(--off-white);
-        }
-
-        .marketplace-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .marketplace-card {
-            padding: 2rem;
-            background: var(--white);
-            border: 1px solid var(--silver);
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.3s ease;
-            display: block;
-        }
-
-        .marketplace-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 40px rgba(15, 28, 63, 0.1);
-            border-color: var(--navy);
-        }
-
-        .marketplace-card h3 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 0.5rem;
-        }
-
-        .marketplace-card p {
-            font-size: 0.9rem;
-            color: var(--slate);
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-
-        .marketplace-card .link {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--accent);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .marketplace-card:hover .link {
-            gap: 0.75rem;
-        }
-
-        .marketplace-card.coming-soon {
-            opacity: 0.7;
-        }
-
-        .marketplace-card.coming-soon .badge {
-            display: inline-block;
-            font-size: 0.65rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--slate);
-            background: var(--silver);
-            padding: 0.25rem 0.5rem;
-            margin-left: 0.5rem;
-        }
-
-        .marketplace-note {
-            text-align: center;
-            margin-top: 2rem;
-            font-size: 0.9rem;
-            color: var(--slate);
-            font-style: italic;
-        }
-
-        /* Platform Section */
-        .platform {
-            background: var(--white);
-        }
-
-        .platform-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .platform-text h2 {
-            font-family: 'Outfit', sans-serif;
-            font-size: clamp(1.75rem, 3vw, 2.25rem);
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
-        }
-
-        .platform-text p {
-            font-size: 1rem;
-            color: var(--slate);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .platform-list {
-            list-style: none;
-            margin-bottom: 2rem;
-        }
-
-        .platform-list li {
-            padding: 0.6rem 0;
-            padding-left: 1.25rem;
-            position: relative;
-            color: var(--text-dark);
-            font-size: 0.95rem;
-        }
-
-        .platform-list li::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 5px;
-            height: 5px;
-            background: var(--navy);
-        }
-
-        .platform-card {
-            padding: 2.5rem;
-            background: var(--off-white);
-            border: 1px solid var(--silver);
-        }
-
-        .platform-card h3 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 0.75rem;
-        }
-
-        .platform-card p {
-            font-size: 0.9rem;
-            color: var(--slate);
-            line-height: 1.7;
-        }
-
-        /* Advisory Section */
-        .advisory {
-            background: var(--navy);
-            color: var(--white);
-        }
-
-        .advisory-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .advisory-text h2 {
-            font-family: 'Outfit', sans-serif;
-            font-size: clamp(1.75rem, 3vw, 2.25rem);
-            font-weight: 600;
-            color: var(--white);
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
-        }
-
-        .advisory-text p {
-            font-size: 1rem;
-            color: rgba(255,255,255,0.7);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .advisory-list {
-            list-style: none;
-            margin-bottom: 2rem;
-        }
-
-        .advisory-list li {
-            padding: 0.6rem 0;
-            padding-left: 1.25rem;
-            position: relative;
-            color: var(--white);
-            font-size: 0.95rem;
-        }
-
-        .advisory-list li::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 5px;
-            height: 5px;
-            background: var(--white);
-        }
-
-        .advisory-note {
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.5);
-            font-style: italic;
-        }
-
-        .btn-white {
-            background: var(--white);
-            color: var(--navy);
-        }
-
-        .btn-white:hover {
-            background: var(--off-white);
-            transform: translateY(-2px);
-        }
-
-        /* Who Section */
-        .who {
-            background: var(--off-white);
-        }
-
-        .who-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .who-card {
-            padding: 1.5rem;
-            background: var(--white);
-            border: 1px solid var(--silver);
-            text-align: center;
-        }
-
-        .who-card h3 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 0.5rem;
-        }
-
-        .who-card p {
-            font-size: 0.85rem;
-            color: var(--slate);
-            line-height: 1.6;
-        }
-
-        /* About Section */
-        .about {
-            background: var(--white);
-        }
-
-        .about-content {
-            max-width: 700px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .about-content h2 {
-            font-family: 'Outfit', sans-serif;
-            font-size: clamp(1.75rem, 3vw, 2.25rem);
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
-        }
-
-        .about-content p {
-            font-size: 1.05rem;
-            color: var(--slate);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .about-values {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin-top: 2.5rem;
-            padding-top: 2.5rem;
-            border-top: 1px solid var(--silver);
-        }
-
-        .founders {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin: 3rem 0;
-            text-align: left;
-        }
-
-        .founder {
-            padding: 2rem;
-            background: var(--off-white);
-            border: 1px solid var(--silver);
-        }
-
-        .founder h3 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 0.75rem;
-        }
-
-        .founder p {
-            font-size: 0.95rem;
-            color: var(--slate);
-            line-height: 1.7;
-            margin-bottom: 0;
-        }
-
-        .founders-note {
-            font-size: 1rem;
-            color: var(--text-dark);
-            font-style: italic;
-            max-width: 650px;
-            margin: 0 auto;
-            line-height: 1.8;
-        }
-
-        .about-value {
-            text-align: center;
-        }
-
-        .about-value h4 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 0.25rem;
-        }
-
-        .about-value p {
-            font-size: 0.8rem;
-            color: var(--slate);
-            margin-bottom: 0;
-        }
-
-        /* Contact */
-        .contact {
-            background: var(--off-white);
-            text-align: center;
-        }
-
-        .contact h2 {
-            font-family: 'Outfit', sans-serif;
-            font-size: clamp(1.75rem, 3vw, 2.25rem);
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 1rem;
-        }
-
-        .contact p {
-            font-size: 1rem;
-            color: var(--slate);
-            max-width: 500px;
-            margin: 0 auto 2rem;
-        }
-
-        .contact-email {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.35rem;
-            font-weight: 600;
-            color: var(--navy);
-            text-decoration: none;
-            border-bottom: 2px solid var(--navy);
-            padding-bottom: 0.25rem;
-            transition: all 0.3s ease;
-        }
-
-        .contact-email:hover {
-            color: var(--accent);
-            border-color: var(--accent);
-        }
-
-        /* Footer */
-        footer {
-            padding: 2rem 4rem;
-            background: var(--navy);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .footer-logo {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--white);
-        }
-
-        footer p {
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.5);
-        }
-
-        /* Responsive */
-        @media (max-width: 968px) {
-            nav {
-                padding: 1.25rem 2rem;
-            }
-
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--white);
-                flex-direction: column;
-                padding: 2rem;
-                gap: 1.5rem;
-                border-bottom: 1px solid var(--silver);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-menu-btn {
-                display: flex;
-            }
-
-            section {
-                padding: 4rem 2rem;
-            }
-
-            .hero {
-                padding: 7rem 2rem 4rem;
-            }
-
-            .marketplace-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .platform-content,
-            .advisory-content {
-                grid-template-columns: 1fr;
-                gap: 2.5rem;
-            }
-
-            .who-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .about-values {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-
-            .founders {
-                grid-template-columns: 1fr;
-            }
-
-            footer {
-                padding: 2rem;
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero-cta {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-                text-align: center;
-            }
-
-            .who-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sosville Capital | ATM &amp; Payments M&amp;A Advisory</title>
+<meta name="description" content="Sell-side M&amp;A advisory for ATM portfolios and payments businesses. Competitive sale processes that have delivered 4.2x–4.5x EBITDA.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#ffffff}
+a{color:#1450B4}a:hover{color:#0A1F44}
+input:focus,button:focus-visible,a:focus-visible{outline:3px solid #F2B705;outline-offset:2px}
+</style>
 </head>
 <body>
-    <nav>
-        <a href="#" class="logo">sosvl</a>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#marketplaces">Marketplaces</a></li>
-            <li><a href="#platform">Platform Brokerage</a></li>
-            <li><a href="#advisory">Advisory</a></li>
-            <li><a href="#about">About</a></li>
-        </ul>
-        <a href="#contact" class="nav-cta">Contact</a>
-        <button class="mobile-menu-btn" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </nav>
+<div style="font-family: Inter, system-ui, sans-serif; color: #0F172A; background: #FFFFFF; width: 100%">
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Building focused marketplaces for buying and selling service businesses</h1>
-            <p class="lead">sosvl operates a portfolio of vertical marketplaces, a national broker network, and a selective advisory practice.</p>
-            <p>Each brand is purpose-built for clarity, trust, and execution. If you're looking to buy, sell, broker, or prepare a service business for transition, start here.</p>
-            <div class="hero-cta">
-                <a href="#marketplaces" class="btn btn-primary">View Marketplaces</a>
-                <a href="#platform" class="btn btn-secondary">For Brokers</a>
-            </div>
-        </div>
-    </section>
+<header style="background: #0A1F44; border-bottom: 1px solid #1C3566">
+<div style="max-width: 1200px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="#top" style="display: flex; align-items: center; gap: 12px; text-decoration: none">
+<span style="display: inline-flex; width: 40px; height: 40px; align-items: center; justify-content: center; background: #F2B705; color: #0A1F44; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 22px">S</span>
+<span style="display: flex; flex-direction: column; line-height: 1.05">
+<span style="font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: 0.06em; color: #FFFFFF">SOSVILLE CAPITAL</span>
+<span style="font-size: 11px; letter-spacing: 0.14em; color: #B9C6DE; text-transform: uppercase">ATM &amp; Payments M&amp;A Advisory</span>
+</span>
+</a>
+<nav aria-label="Primary" style="display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: center">
+<a href="#transactions" style="color: #DCE4F2; text-decoration: none; font-size: 14px; font-weight: 500; padding: 12px 0">Transactions</a>
+<a href="#process" style="color: #DCE4F2; text-decoration: none; font-size: 14px; font-weight: 500; padding: 12px 0">Our process</a>
+<a href="#tax" style="color: #DCE4F2; text-decoration: none; font-size: 14px; font-weight: 500; padding: 12px 0">After-tax value</a>
+<a href="#contact" style="background: #F2B705; color: #0A1F44; text-decoration: none; font-size: 14px; font-weight: 700; padding: 12px 18px">Confidential valuation</a>
+</nav>
+</div>
+</header>
 
-    <section class="marketplaces" id="marketplaces">
-        <div class="section-header center">
-            <p class="section-tag">Our Ecosystem</p>
-            <h2>Sell or Buy a Business</h2>
-        </div>
-        <div class="marketplace-grid">
-            <a href="https://atmbrokerage.com" class="marketplace-card" target="_blank">
-                <h3>ATM Brokerage</h3>
-                <p>Buy and sell ATM route businesses nationwide.</p>
-                <span class="link">atmbrokerage.com →</span>
-            </a>
-            <a href="https://cleaningexits.com" class="marketplace-card" target="_blank">
-                <h3>Cleaning Exits</h3>
-                <p>Buy and sell commercial and residential cleaning businesses.</p>
-                <span class="link">cleaningexits.com →</span>
-            </a>
-            <div class="marketplace-card coming-soon">
-                <h3>Vending Exits <span class="badge">Launching</span></h3>
-                <p>Buy and sell vending and unattended retail businesses.</p>
-                <span class="link">vendingexits.com →</span>
-            </div>
-        </div>
-        <p class="marketplace-note">Each marketplace is niche-specific, independently operated, and optimized for trust—not volume.</p>
-    </section>
+<section id="top" style="background: #0A1F44; color: #FFFFFF; padding: 88px 24px 0">
+<div style="max-width: 1200px; margin: 0 auto">
+<p style="margin: 0 0 18px; font-size: 14px; letter-spacing: 0.16em; text-transform: uppercase; color: #B9C6DE"><span style="color: #F2B705; font-weight: 700">Sosville Capital</span> | Sell-Side Advisory</p>
+<h1 style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: clamp(44px, 7vw, 88px); line-height: 0.98; text-transform: uppercase; max-width: 900px">We create competition.<br>Competition creates value.</h1>
+<div style="margin-top: 32px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+<div style="flex: 1 1 520px; border-left: 4px solid #F2B705; padding-left: 20px">
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-size: 28px; font-weight: 700; color: #F2B705">ATM Portfolios &amp; Payments Businesses</p>
+<p style="margin: 10px 0 0; font-size: 18px; line-height: 1.6; color: #DCE4F2; max-width: 640px">A structured, confidential sale process that puts strategic acquirers, ISOs, private equity and family offices in the same room — so the market, not a single buyer, sets your price. Then we structure the deal so you keep more of it.</p>
+</div>
+<div style="flex: 0 1 320px; display: flex; flex-direction: column; gap: 12px">
+<a href="#contact" style="display: block; text-align: center; background: #F2B705; color: #0A1F44; text-decoration: none; font-weight: 700; font-size: 16px; padding: 16px 24px">Request a confidential valuation</a>
+<a href="#transactions" style="display: block; text-align: center; border: 1px solid #5B76A8; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 16px; padding: 15px 24px">View selected transactions</a>
+</div>
+</div>
 
-    <section class="platform" id="platform">
-        <div class="platform-content">
-            <div class="platform-text">
-                <h2>For Brokers & Referral Partners</h2>
-                <p>We operate a national referral and routing platform for licensed brokers and qualified referral partners, with a focus on compliance, attribution, and clean economics.</p>
-                <ul class="platform-list">
-                    <li>Broker onboarding</li>
-                    <li>Deal routing & attribution</li>
-                    <li>Referral fee administration</li>
-                    <li>California compliance coverage</li>
-                </ul>
-                <a href="https://platformbrokerage.com" class="btn btn-primary" target="_blank">Learn More →</a>
-            </div>
-            <div class="platform-card">
-                <h3>Platform Brokerage</h3>
-                <p>Colorado-based brokerage with a national referral network and niche buyer representation. If you're a licensed broker looking for deal flow, or a referral partner looking for clean economics, this is where you plug in.</p>
-            </div>
-        </div>
-    </section>
+<div style="margin-top: 72px; display: flex; flex-wrap: wrap; border-top: 1px solid #2A4475">
+<div style="flex: 1 1 220px; padding: 28px 24px 32px 0">
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 52px; line-height: 1; color: #FFFFFF">4.2x–4.5x</p>
+<p style="margin: 8px 0 0; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #B9C6DE">EBITDA on recent sell-side mandates</p>
+</div>
+<div style="flex: 1 1 220px; padding: 28px 24px 32px 0">
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 52px; line-height: 1; color: #FFFFFF">200+</p>
+<p style="margin: 8px 0 0; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #B9C6DE">Closed transactions</p>
+</div>
+<div style="flex: 1 1 220px; padding: 28px 24px 32px 0">
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 52px; line-height: 1; color: #FFFFFF">$75M+</p>
+<p style="margin: 8px 0 0; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #B9C6DE">Transaction volume advised</p>
+</div>
+<div style="flex: 1 1 220px; padding: 28px 0 32px 0">
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 52px; line-height: 1; color: #FFFFFF">2008</p>
+<p style="margin: 8px 0 0; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #B9C6DE">Operating in the ATM industry since</p>
+</div>
+</div>
+</div>
+</section>
 
-    <section class="advisory" id="advisory">
-        <div class="advisory-content">
-            <div class="advisory-text">
-                <h2>For Owners Preparing an Exit</h2>
-                <p>Selective advisory for owners who need depth before a transaction. This is application-only and limited in scope.</p>
-                <ul class="advisory-list">
-                    <li>Exit readiness & cleanup</li>
-                    <li>Owner transition planning</li>
-                    <li>Managed services & operational stabilization</li>
-                </ul>
-                <p class="advisory-note">This monetizes depth, not scale.</p>
-                <a href="https://jeffsosville.github.io/consultant_strategies/" class="btn btn-white" target="_blank">Apply →</a>
-            </div>
-            <div>
-                <div class="platform-card" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
-                    <h3 style="color: white;">Consultant Strategies</h3>
-                    <p style="color: rgba(255,255,255,0.7);">Niche advisory specializing in exit prepping, managed services, and owner transition strategies. Built on real transaction experience—not theory.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="transactions" style="background: #F3F6FB; padding: 96px 24px">
+<div style="max-width: 1200px; margin: 0 auto">
+<p style="margin: 0; font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #1450B4">Sosville Capital – Focused exclusively on ATM &amp; payments</p>
+<h2 style="margin: 8px 0 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 48px; line-height: 1.05; color: #0A1F44">Selected Transactions</h2>
+<p style="margin: 12px 0 0; font-size: 17px; line-height: 1.6; color: #475569; max-width: 720px">Competitive processes across the Northeast, South and Midwest. Seller and buyer identities are kept confidential.</p>
 
-    <section class="who" id="who">
-        <div class="section-header center">
-            <p class="section-tag">Who This Is For</p>
-            <h2>Find Your Starting Point</h2>
-        </div>
-        <div class="who-grid">
-            <div class="who-card">
-                <h3>Business Owners</h3>
-                <p>Looking for a clean, focused exit</p>
-            </div>
-            <div class="who-card">
-                <h3>Buyers</h3>
-                <p>Seeking real opportunities in specific niches</p>
-            </div>
-            <div class="who-card">
-                <h3>Licensed Brokers</h3>
-                <p>Looking for deal flow and referral economics</p>
-            </div>
-            <div class="who-card">
-                <h3>Partners</h3>
-                <p>CPAs, attorneys, lenders who refer or support transactions</p>
-            </div>
-        </div>
-    </section>
+<div style="margin-top: 48px; display: flex; flex-wrap: wrap; gap: 28px">
 
-    <section class="about" id="about">
-        <div class="about-content">
-            <h2>About sosvl</h2>
-            <p>sosvl builds and operates vertical marketplaces for service business transactions.</p>
-            <p>Our brands are independent by design, connected by infrastructure, and aligned by incentives.</p>
-            
-            <div class="founders">
-                <div class="founder">
-                    <h3>John Sosville</h3>
-                    <p>Marketing, PR, sales strategy, and deal execution. John drives the relationships—broker networks, buyer outreach, and the positioning that makes each vertical resonate. When a marketplace needs to go from zero to traction, John builds the engine.</p>
-                </div>
-                <div class="founder">
-                    <h3>Jeff Sosville</h3>
-                    <p>Tech, systems, and infrastructure. Jeff builds the platforms—Python scrapers, databases, dev ops, and the technical stack that powers everything under the hood. When data needs to move or a marketplace needs to scale, Jeff writes the code.</p>
-                </div>
-            </div>
-            
-            <p class="founders-note">Together: John finds the opportunities and closes the deals. Jeff builds the systems that make it repeatable. That combination—sales acumen plus technical depth—is why we can launch vertical marketplaces faster than anyone else and operate them at scale.</p>
+<div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 16px">
+<div style="background: #FFFFFF; border: 1px solid #C9D4E6; box-shadow: 0 1px 2px rgba(10,31,68,0.06); display: flex; flex-direction: column; text-align: center">
+<div style="background: #0A1F44; color: #FFFFFF; padding: 10px; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.12em">SOSVILLE CAPITAL</div>
+<div style="padding: 28px 24px; display: flex; flex-direction: column; gap: 10px; align-items: center">
+<p style="margin: 0; font-size: 12px; color: #475569; font-style: italic">is pleased to announce its role as exclusive sell-side advisor to</p>
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 26px; color: #0A1F44">Northeast ATM Portfolio</p>
+<p style="margin: 0; font-size: 12px; color: #475569; font-style: italic">in its sale to</p>
+<p style="margin: 0; font-size: 15px; font-weight: 600; color: #0F172A">a strategic acquirer</p>
+<div style="width: 64px; height: 2px; background: #F2B705; margin: 8px 0"></div>
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 40px; color: #0A1F44">$4,000,000</p>
+<p style="margin: 0; display: inline-block; background: #E6EEFB; color: #1450B4; font-weight: 700; font-size: 14px; padding: 6px 12px">4.4x EBITDA</p>
+</div>
+<div style="border-top: 1px solid #E2E8F0; padding: 10px; font-size: 11px; color: #475569">Focused exclusively on ATM &amp; payments M&amp;A</div>
+</div>
+<p style="margin: 0; text-align: center; font-size: 14px; line-height: 1.5; color: #334155">Multiple qualified bidders drove the final price above the opening offer</p>
+</div>
 
-            <div class="about-values">
-                <div class="about-value">
-                    <h4>Focus over scale</h4>
-                    <p>Depth wins</p>
-                </div>
-                <div class="about-value">
-                    <h4>Transparency over volume</h4>
-                    <p>Trust compounds</p>
-                </div>
-                <div class="about-value">
-                    <h4>Systems over noise</h4>
-                    <p>Clean execution</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 16px">
+<div style="background: #FFFFFF; border: 1px solid #C9D4E6; box-shadow: 0 1px 2px rgba(10,31,68,0.06); display: flex; flex-direction: column; text-align: center">
+<div style="background: #0A1F44; color: #FFFFFF; padding: 10px; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.12em">SOSVILLE CAPITAL</div>
+<div style="padding: 28px 24px; display: flex; flex-direction: column; gap: 10px; align-items: center">
+<p style="margin: 0; font-size: 12px; color: #475569; font-style: italic">is pleased to announce its role as exclusive sell-side advisor to</p>
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 26px; color: #0A1F44">Southern ATM Portfolio</p>
+<p style="margin: 0; font-size: 12px; color: #475569; font-style: italic">in its sale to</p>
+<p style="margin: 0; font-size: 15px; font-weight: 600; color: #0F172A">a private investor group</p>
+<div style="width: 64px; height: 2px; background: #F2B705; margin: 8px 0"></div>
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 40px; color: #0A1F44">$3,000,000</p>
+<p style="margin: 0; display: inline-block; background: #E6EEFB; color: #1450B4; font-weight: 700; font-size: 14px; padding: 6px 12px">4.2x EBITDA</p>
+</div>
+<div style="border-top: 1px solid #E2E8F0; padding: 10px; font-size: 11px; color: #475569">Focused exclusively on ATM &amp; payments M&amp;A</div>
+</div>
+<p style="margin: 0; text-align: center; font-size: 14px; line-height: 1.5; color: #334155">Price allocation structured with the seller's CPA to favor capital-gains treatment</p>
+</div>
 
-    <section class="contact" id="contact">
-        <h2>Get In Touch</h2>
-        <p>Partnership inquiries, press, or questions about our ecosystem.</p>
-        <a href="mailto:info@sosvl.com" class="contact-email">info@sosvl.com</a>
-    </section>
+<div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 16px">
+<div style="background: #FFFFFF; border: 1px solid #C9D4E6; box-shadow: 0 1px 2px rgba(10,31,68,0.06); display: flex; flex-direction: column; text-align: center">
+<div style="background: #0A1F44; color: #FFFFFF; padding: 10px; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.12em">SOSVILLE CAPITAL</div>
+<div style="padding: 28px 24px; display: flex; flex-direction: column; gap: 10px; align-items: center">
+<p style="margin: 0; font-size: 12px; color: #475569; font-style: italic">is pleased to announce its role as exclusive sell-side advisor to</p>
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 26px; color: #0A1F44">Ohio &amp; Michigan ATM Portfolios</p>
+<p style="margin: 0; font-size: 12px; color: #475569; font-style: italic">in their combined sale to</p>
+<p style="margin: 0; font-size: 15px; font-weight: 600; color: #0F172A">a national ATM operator</p>
+<div style="width: 64px; height: 2px; background: #F2B705; margin: 8px 0"></div>
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 40px; color: #0A1F44">~$4,000,000</p>
+<p style="margin: 0; display: inline-block; background: #E6EEFB; color: #1450B4; font-weight: 700; font-size: 14px; padding: 6px 12px">4.5x adjusted EBITDA</p>
+</div>
+<div style="border-top: 1px solid #E2E8F0; padding: 10px; font-size: 11px; color: #475569">Focused exclusively on ATM &amp; payments M&amp;A</div>
+</div>
+<p style="margin: 0; text-align: center; font-size: 14px; line-height: 1.5; color: #334155">Two Midwest operators combined into one package; counter-proposal moved the offer to 4.5x adjusted EBITDA</p>
+</div>
 
-    <footer>
-        <div class="footer-logo">sosvl</div>
-        <p>© 2026 sosvl. All rights reserved.</p>
-    </footer>
+</div>
 
-    <script>
-        function toggleMenu() {
-            document.getElementById('navLinks').classList.toggle('active');
-        }
+<h3 style="margin: 72px 0 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 30px; color: #0A1F44">Current Mandates</h3>
+<p style="margin: 6px 0 0; font-size: 15px; color: #475569">Actively marketing. NDA required for the data room.</p>
+<div style="margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px">
+<div style="flex: 1 1 260px; background: #FFFFFF; border: 1px solid #C9D4E6; padding: 24px; display: flex; flex-direction: column; gap: 8px">
+<p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #1450B4">Northeast · Merchant residuals</p>
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 700; font-size: 22px; color: #0A1F44">New York City merchant portfolio · 211 locations</p>
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 30px; color: #0A1F44">$3,750,000</p>
+</div>
+<div style="flex: 1 1 260px; background: #FFFFFF; border: 1px solid #C9D4E6; padding: 24px; display: flex; flex-direction: column; gap: 8px">
+<p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #1450B4">West · ATM route</p>
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 700; font-size: 22px; color: #0A1F44">San Francisco · 225 ATMs</p>
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 30px; color: #0A1F44">$3,259,000</p>
+</div>
+<div style="flex: 1 1 260px; background: #FFFFFF; border: 1px solid #C9D4E6; padding: 24px; display: flex; flex-direction: column; gap: 8px">
+<p style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #1450B4">Northeast · ATM route</p>
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 700; font-size: 22px; color: #0A1F44">Philadelphia, PA · 168 ATMs</p>
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 30px; color: #0A1F44">$1,750,000</p>
+</div>
+</div>
+</div>
+</section>
 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                    document.getElementById('navLinks').classList.remove('active');
-                }
-            });
-        });
-    </script>
+<section style="background: #FFFFFF; padding: 96px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 56px">
+<div style="flex: 1 1 520px; min-width: 0">
+<p style="margin: 0; font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #1450B4">Why competition matters</p>
+<h2 style="margin: 8px 0 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 44px; line-height: 1.05; color: #0A1F44">One buyer sets a price. A process sets the market.</h2>
+<p style="margin: 16px 0 0; font-size: 17px; line-height: 1.6; color: #475569">Buyers approaching sellers directly often anchor around 3x EBITDA. Our recent competitive processes cleared well above that.</p>
+<div role="img" aria-label="EBITDA multiples: single-buyer expectation 3.0x; Southern portfolio 4.2x; Northeast portfolio 4.4x; Ohio and Michigan portfolios 4.5x adjusted" style="margin-top: 36px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; justify-content: space-between; font-size: 14px; color: #334155"><span>Single-buyer expectation</span><span style="font-weight: 700">3.0x</span></div>
+<div style="height: 22px; background: #EEF2F7"><div style="height: 22px; width: 60%; background: #94A3B8"></div></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; justify-content: space-between; font-size: 14px; color: #334155"><span>Southern ATM portfolio</span><span style="font-weight: 700; color: #0A1F44">4.2x</span></div>
+<div style="height: 22px; background: #EEF2F7"><div style="height: 22px; width: 84%; background: #1450B4"></div></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; justify-content: space-between; font-size: 14px; color: #334155"><span>Northeast ATM portfolio</span><span style="font-weight: 700; color: #0A1F44">4.4x</span></div>
+<div style="height: 22px; background: #EEF2F7"><div style="height: 22px; width: 88%; background: #1450B4"></div></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; justify-content: space-between; font-size: 14px; color: #334155"><span>Ohio &amp; Michigan portfolios (adjusted)</span><span style="font-weight: 700; color: #0A1F44">4.5x</span></div>
+<div style="height: 22px; background: #EEF2F7"><div style="height: 22px; width: 90%; background: #0A1F44"></div></div>
+</div>
+<p style="margin: 0; font-size: 12px; color: #64748B">Multiple of trailing-twelve-month EBITDA. Scale: 0x–5.0x.</p>
+</div>
+</div>
+<div style="flex: 1 1 380px; min-width: 0; background: #0A1F44; color: #FFFFFF; padding: 36px; display: flex; flex-direction: column; gap: 20px; align-self: flex-start">
+<p style="margin: 0; font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #F2B705">Illustrative economics</p>
+<p style="margin: 0; font-size: 15px; color: #DCE4F2">Same business. $1.0M of EBITDA.</p>
+<div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #2A4475; padding-bottom: 14px"><span style="font-size: 15px; color: #DCE4F2">At 3.0x, one buyer</span><span style="font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 34px">$3.0M</span></div>
+<div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #2A4475; padding-bottom: 14px"><span style="font-size: 15px; color: #DCE4F2">At 4.4x, competitive process</span><span style="font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 34px">$4.4M</span></div>
+<div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-size: 15px; font-weight: 700; color: #F2B705">Added to the seller</span><span style="font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 44px; color: #F2B705">+$1.4M</span></div>
+<p style="margin: 0; font-size: 12px; line-height: 1.5; color: #B9C6DE">Illustration only. Not a valuation; excludes debt, taxes and transaction costs.</p>
+</div>
+</div>
+</section>
+
+<section id="process" style="background: #F3F6FB; padding: 96px 24px">
+<div style="max-width: 1200px; margin: 0 auto">
+<p style="margin: 0; font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #1450B4">Our process</p>
+<h2 style="margin: 8px 0 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 48px; line-height: 1.05; color: #0A1F44">How John runs a competitive sale</h2>
+<div style="margin-top: 48px; display: flex; flex-wrap: wrap; gap: 24px">
+<div style="flex: 1 1 250px; background: #FFFFFF; border-top: 4px solid #1450B4; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 20px; color: #1450B4">01 / Normalize</p>
+<p style="margin: 0; font-size: 18px; font-weight: 700; color: #0A1F44">Build defensible adjusted EBITDA</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #475569">Trailing-twelve-month numbers from processor data, with interest, owner costs and one-time items added back, so buyers bid on the true earnings.</p>
+</div>
+<div style="flex: 1 1 250px; background: #FFFFFF; border-top: 4px solid #1450B4; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 20px; color: #1450B4">02 / Package</p>
+<p style="margin: 0; font-size: 18px; font-weight: 700; color: #0A1F44">A CIM and data room buyers trust</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #475569">Location agreements, equipment, transaction history and terms organized before launch, so diligence questions don't stall momentum.</p>
+</div>
+<div style="flex: 1 1 250px; background: #FFFFFF; border-top: 4px solid #1450B4; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 20px; color: #1450B4">03 / Compete</p>
+<p style="margin: 0; font-size: 18px; font-weight: 700; color: #0A1F44">Many qualified bidders, one timeline</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #475569">Confidential outreach to strategic operators, ISOs, private equity, family offices and SBA-backed buyers, with proof of funds required and LOI deadlines enforced.</p>
+</div>
+<div style="flex: 1 1 250px; background: #FFFFFF; border-top: 4px solid #1450B4; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 20px; color: #1450B4">04 / Close</p>
+<p style="margin: 0; font-size: 18px; font-weight: 700; color: #0A1F44">Counter, redline, transfer</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #475569">Counter-proposals, LOI redlines, holdback terms and location-agreement transfers managed through to funding.</p>
+</div>
+</div>
+
+<div style="margin-top: 56px; background: #0A1F44; color: #FFFFFF; padding: 44px; display: flex; flex-wrap: wrap; gap: 32px; align-items: center">
+<div style="flex: 0 0 auto; width: 120px; height: 120px; background: #1C3566; border: 2px solid #F2B705; display: flex; align-items: center; justify-content: center; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 44px; color: #F2B705">JS</div>
+<div style="flex: 1 1 520px; min-width: 0">
+<p style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 700; font-size: 30px; line-height: 1.25">“We create competition to drive price up, and we protect both buyer and seller.”</p>
+<p style="margin: 14px 0 0; font-size: 15px; color: #B9C6DE"><span style="color: #FFFFFF; font-weight: 700">John Sosville</span> · Managing Director, Sell-Side Advisory</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="tax" style="background: #FFFFFF; padding: 96px 24px">
+<div style="max-width: 1200px; margin: 0 auto">
+<p style="margin: 0; font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #1450B4">After-tax value</p>
+<h2 style="margin: 8px 0 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 48px; line-height: 1.05; color: #0A1F44">The headline price is half the job. What you keep is the other half.</h2>
+<p style="margin: 14px 0 0; font-size: 17px; line-height: 1.6; color: #475569; max-width: 760px">We structure the deal alongside your CPA so more of the purchase price is taxed at the most favorable rate available to you.</p>
+<div style="margin-top: 44px; display: flex; flex-wrap: wrap; gap: 24px">
+<div style="flex: 1 1 260px; border: 1px solid #C9D4E6; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0; font-size: 18px; font-weight: 700; color: #0A1F44">Purchase-price allocation</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #475569">Value weighted toward goodwill and location contracts, which generally qualify for capital-gains treatment, rather than equipment subject to depreciation recapture.</p>
+</div>
+<div style="flex: 1 1 260px; border: 1px solid #C9D4E6; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0; font-size: 18px; font-weight: 700; color: #0A1F44">Asset vs. entity sale</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #475569">Choosing the structure that fits your entity type and basis, negotiated up front in the LOI, not discovered at closing.</p>
+</div>
+<div style="flex: 1 1 260px; border: 1px solid #C9D4E6; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0; font-size: 18px; font-weight: 700; color: #0A1F44">Timing the gain</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #475569">Seller notes, installment terms and holdbacks used deliberately, so the gain can be spread across tax years where it helps.</p>
+</div>
+</div>
+<p style="margin: 20px 0 0; font-size: 12px; color: #64748B">Sosville Capital does not provide tax or legal advice. Structure is set with your own CPA and attorney.</p>
+</div>
+</section>
+
+<section style="background: #F3F6FB; padding: 96px 24px">
+<div style="max-width: 1200px; margin: 0 auto">
+<p style="margin: 0; font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #1450B4">From our clients</p>
+<div style="margin-top: 28px; display: flex; flex-wrap: wrap; gap: 24px">
+<figure style="flex: 1 1 440px; margin: 0; background: #FFFFFF; padding: 36px; display: flex; flex-direction: column; gap: 18px">
+<blockquote style="margin: 0; font-size: 19px; line-height: 1.6; color: #0F172A">“I enjoyed working with Jeff Sosville throughout the sale of our ATM company in Phoenix. Jeff was professional throughout the process and maximized the sales price that we got for our portfolio by strategically providing information to multiple potential buyers and then timely working with them to close the best offer.”</blockquote>
+<figcaption style="font-size: 14px; font-weight: 700; color: #1450B4">Greg H. · ATM company seller, Phoenix, AZ</figcaption>
+</figure>
+<figure style="flex: 1 1 340px; margin: 0; background: #FFFFFF; padding: 36px; display: flex; flex-direction: column; gap: 18px">
+<blockquote style="margin: 0; font-size: 19px; line-height: 1.6; color: #0F172A">“You brought me great qualified prospects. I got a better price than I was expecting. When I’m ready sell my next business, you’re my first call.”</blockquote>
+<figcaption style="font-size: 14px; font-weight: 700; color: #1450B4">Kevin · ATM route seller, Florida</figcaption>
+</figure>
+</div>
+</div>
+</section>
+
+<section id="contact" style="background: #0A1F44; color: #FFFFFF; padding: 96px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start">
+<div style="flex: 1 1 460px; min-width: 0">
+<h2 style="margin: 0; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 52px; line-height: 1.02; text-transform: uppercase">What would a competitive process do for your price?</h2>
+<p style="margin: 18px 0 0; font-size: 17px; line-height: 1.6; color: #DCE4F2">Send us your trailing-twelve-month numbers and we'll come back with a confidential view of value and the buyers likely to compete for it.</p>
+<div style="margin-top: 28px; display: flex; flex-direction: column; gap: 8px; font-size: 16px">
+<a href="tel:+18884305535" style="color: #FFFFFF; text-decoration: none; font-weight: 600; padding: 6px 0">888-430-5535</a>
+<a href="mailto:info@sosville.co" style="color: #F2B705; text-decoration: none; font-weight: 600; padding: 6px 0">info@sosville.co</a>
+</div>
+</div>
+<form action="mailto:info@sosville.co" method="post" enctype="text/plain" style="flex: 1 1 420px; min-width: 0; background: #FFFFFF; color: #0F172A; padding: 32px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="f-name" style="font-size: 14px; font-weight: 600">Name</label><input id="f-name" name="name" type="text" style="height: 44px; border: 1px solid #94A3B8; padding: 0 12px; font-size: 15px"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="f-email" style="font-size: 14px; font-weight: 600">Email</label><input id="f-email" name="email" type="email" style="height: 44px; border: 1px solid #94A3B8; padding: 0 12px; font-size: 15px"></div>
+<div style="display: flex; flex-wrap: wrap; gap: 16px">
+<div style="flex: 1 1 160px; display: flex; flex-direction: column; gap: 6px"><label for="f-units" style="font-size: 14px; font-weight: 600">Number of ATMs / locations</label><input id="f-units" name="locations" type="text" style="height: 44px; border: 1px solid #94A3B8; padding: 0 12px; font-size: 15px"></div>
+<div style="flex: 1 1 160px; display: flex; flex-direction: column; gap: 6px"><label for="f-ebitda" style="font-size: 14px; font-weight: 600">Approx. annual EBITDA</label><input id="f-ebitda" name="ebitda" type="text" style="height: 44px; border: 1px solid #94A3B8; padding: 0 12px; font-size: 15px"></div>
+</div>
+<button type="submit" style="height: 52px; background: #0A1F44; color: #FFFFFF; border: 0; font-weight: 700; font-size: 16px; cursor: pointer">Request confidential valuation</button>
+<p style="margin: 0; font-size: 12px; color: #64748B">Every inquiry is handled under NDA.</p>
+</form>
+</div>
+</section>
+
+<footer style="background: #071731; color: #B9C6DE; padding: 28px 24px">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13px">
+<span><span style="color: #FFFFFF; font-weight: 700">Sosville Capital</span> · A Sosville Group company · Skaneateles, NY</span>
+<span>Past results do not guarantee future outcomes. Multiples shown are seller-reported deal terms.</span>
+</div>
+</footer>
+
+</div>
 </body>
 </html>
